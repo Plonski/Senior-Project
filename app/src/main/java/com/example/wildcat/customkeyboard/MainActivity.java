@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
+import com.firebase.client.Firebase;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.io.File;
 import java.util.jar.Manifest;
 
 import static android.app.PendingIntent.getActivity;
@@ -25,12 +31,19 @@ import static android.app.PendingIntent.getActivity;
 public class MainActivity extends AppCompatActivity {
 
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    static final int MY_PERMISSIONS_REQUEST_ACCESS_WRITE_EXTERNAL_STORAGE = 2;
 
+    private static final String FIREBASE_URL = "http://spyapp-9cba9.firebaseio.com/";
+    String token = FirebaseInstanceId.getInstance().getToken();
+    private Firebase mref; // = new Firebase(FIREBASE_URL);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+        mref.setAndroidContext(this);
+        mref = new Firebase(FIREBASE_URL);
+
+        setContentView(R.layout.activity_main);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
@@ -45,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
 
     getMyLocation();
 
+    File sdCardRoot = Environment.getExternalStorageDirectory();
+    getStorage(sdCardRoot);
+
+    }
+
+    public void getStorage(File main_file){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                    {android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ACCESS_WRITE_EXTERNAL_STORAGE);
+            return;
+        }
+
+        MyStorage storage;
+        storage = new MyStorage();
+        storage.listRaw(main_file);
     }
 
     public void getMyLocation(){
@@ -74,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         LocationManager myManager;
         MyLocListener loc;
         loc = new MyLocListener();
+        loc.setFirebase(mref);
         myManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         myManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, loc);
         loc.onLocationChanged(myManager.getLastKnownLocation(myManager.GPS_PROVIDER));
@@ -87,6 +117,22 @@ public class MainActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MainActivity.this,
+                            "permission was granted, :)",
+                            Toast.LENGTH_LONG).show();
+                    getMyLocation();
+
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "permission denied, ...:(",
+                            Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+            case MY_PERMISSIONS_REQUEST_ACCESS_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

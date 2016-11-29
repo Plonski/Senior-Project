@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "512268216937",
+    "firebase_url": "https://spyapp-9cba9.firebaseio.com",
+    "project_id": "spyapp-9cba9",
+    "storage_bucket": "spyapp-9cba9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512268216937:android:35c40ddaaec2cc0f",
+        "android_client_info": {
+          "package_name": "com.example.wildcat.customkeyboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512268216937-oe4vf5j9pn9accmb3geeothitac0iov7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wildcat.customkeyboard",
+            "certificate_hash": "42C4C1E23A5A9902C4805025AC283AD44C1A32D8"
+          }
+        },
+        {
+          "client_id": "512268216937-obbqp70cqskkf69kh2hg4g0shv51eqtm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3AMfUG3kIwsbWm27NQU8-5qt4feumfqs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512268216937-obbqp70cqskkf69kh2hg4g0shv51eqtm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
