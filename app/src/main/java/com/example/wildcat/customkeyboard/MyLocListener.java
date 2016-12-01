@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -14,7 +15,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class MyLocListener implements LocationListener {
 
     Firebase mRef;
-
 
     public void onLocationChanged(Location location){
 
@@ -24,7 +24,8 @@ public class MyLocListener implements LocationListener {
             Firebase mRefChildLongitude = mRef.child("Longitude");
             Firebase mRefChildLatitude = mRef.child("Latitude");
             mRefChildLongitude.setValue(location.getLongitude());
-            mRefChildLatitude.setValue(location.getLongitude());
+            mRefChildLatitude.setValue(location.getLatitude());
+
         }
     }
 

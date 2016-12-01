@@ -90,6 +90,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-common/10.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-core/10.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/10.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/10.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/10.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -116,8 +118,10 @@
     <orderEntry type="library" exported="" name="firebase-client-jvm-2.3.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-tasks-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-client-android-2.3.1" level="project" />
+    <orderEntry type="library" exported="" name="firebase-storage-common-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.2.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-iid-10.0.1" level="project" />
+    <orderEntry type="library" exported="" name="firebase-storage-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="design-24.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-media-compat-24.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-24.2.1" level="project" />

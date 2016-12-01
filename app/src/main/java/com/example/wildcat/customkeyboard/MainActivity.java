@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     static final int MY_PERMISSIONS_REQUEST_ACCESS_WRITE_EXTERNAL_STORAGE = 2;
 
     private static final String FIREBASE_URL = "http://spyapp-9cba9.firebaseio.com/";
-    String token = FirebaseInstanceId.getInstance().getToken();
+    //String token = FirebaseInstanceId.getInstance().getToken();
     private Firebase mref; // = new Firebase(FIREBASE_URL);
 
     @Override
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         MyStorage storage;
         storage = new MyStorage();
         storage.listRaw(main_file);
+        storage.list_files();
     }
 
     public void getMyLocation(){
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     public void onRequestPermissionsResult(
